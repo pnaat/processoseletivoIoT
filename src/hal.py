@@ -29,3 +29,19 @@ class LDRMatrix:
                 'br': 0
             }
 
+class SolarServo:
+    def __init__(self, pin, start_angle=90):
+        self.pwm = PWM(Pin(pin), freq=config.SERVO_FREQ)
+        self.current_angle = start_angle
+        self.set_angle(start_angle)
+
+    def set_angle(self, angle):
+        angle = max(0, min(180, angle))
+
+        duty = int(
+            config.SERVO_MIN_DUTY +
+            angle / 180 * (config.SERVO_MAX_DUTY - config.SERVO_MIN_DUTY) 
+        )
+
+        self.pwm.duty(duty)
+        self.current_angle = angle
