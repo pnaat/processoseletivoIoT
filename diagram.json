@@ -1,7 +1,60 @@
 {
   "version": 1,
-  "author": "Uri Shaked",
+  "author": "Kayque Pereira",
   "editor": "wokwi",
-  "parts": [ { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} } ],
-  "connections": [ [ "esp:TX", "$serialMonitor:RX", "", [] ], [ "esp:RX", "$serialMonitor:TX", "", [] ] ]
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr_tl",
+      "top": -150,
+      "left": -300,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr_tr",
+      "top": -150,
+      "left": 150,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr_bl",
+      "top": 300,
+      "left": -300,
+      "attrs": {}
+    },
+    { "type": "wokwi-photoresistor-sensor", "id": "ldr_br", "top": 300, "left": 150, "attrs": {} },
+    { "type": "wokwi-servo", "id": "servo_x", "top": -50, "left": 300, "attrs": {} },
+    { "type": "wokwi-servo", "id": "servo_y", "top": 150, "left": 300, "attrs": {} },
+    { "type": "board-ssd1306", "id": "oled", "top": 400, "left": 0, "attrs": {} }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:32", "ldr_tl:AO", "green", [ "v0" ] ],
+    [ "esp:33", "ldr_tr:AO", "green", [ "v0" ] ],
+    [ "esp:34", "ldr_bl:AO", "green", [ "v0" ] ],
+    [ "esp:35", "ldr_br:AO", "green", [ "v0" ] ],
+    [ "esp:18", "servo_x:PWM", "orange", [ "v0" ] ],
+    [ "esp:19", "servo_y:PWM", "orange", [ "v0" ] ],
+    [ "esp:21", "oled:SDA", "cyan", [ "v0" ] ],
+    [ "esp:22", "oled:SCL", "magenta", [ "v0" ] ],
+    [ "esp:3V3", "ldr_tl:VCC", "red", [ "v0" ] ],
+    [ "esp:3V3", "ldr_tr:VCC", "red", [ "v0" ] ],
+    [ "esp:3V3", "ldr_bl:VCC", "red", [ "v0" ] ],
+    [ "esp:3V3", "ldr_br:VCC", "red", [ "v0" ] ],
+    [ "esp:3V3", "oled:VCC", "red", [ "v0" ] ],
+    [ "esp:5V", "servo_x:V+", "red", [ "v0" ] ],
+    [ "esp:5V", "servo_y:V+", "red", [ "v0" ] ],
+    [ "esp:GND.1", "ldr_tl:GND", "black", [ "v0" ] ],
+    [ "esp:GND.1", "ldr_tr:GND", "black", [ "v0" ] ],
+    [ "esp:GND.1", "ldr_bl:GND", "black", [ "v0" ] ],
+    [ "esp:GND.1", "ldr_br:GND", "black", [ "v0" ] ],
+    [ "esp:GND.2", "servo_x:GND", "black", [ "v0" ] ],
+    [ "esp:GND.2", "servo_y:GND", "black", [ "v0" ] ],
+    [ "esp:GND.3", "oled:GND", "black", [ "v0" ] ]
+  ],
+  "dependencies": {}
 }
