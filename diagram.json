@@ -1,7 +1,56 @@
 {
   "version": 1,
-  "author": "Uri Shaked",
+  "author": "Antigravity",
   "editor": "wokwi",
-  "parts": [ { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} } ],
-  "connections": [ [ "esp:TX", "$serialMonitor:RX", "", [] ], [ "esp:RX", "$serialMonitor:TX", "", [] ] ]
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-slide-switch",
+      "id": "leak_sensor",
+      "top": 120,
+      "left": -100,
+      "attrs": { "value": "0" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_green",
+      "top": 50,
+      "left": 150,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_red",
+      "top": 100,
+      "left": 150,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "buzzer",
+      "top": 150,
+      "left": 150,
+      "attrs": { "volume": "0.1" }
+    },
+    { "type": "wokwi-resistor", "id": "res_g", "top": 80, "left": 150, "attrs": { "value": "220" } },
+    { "type": "wokwi-resistor", "id": "res_r", "top": 130, "left": 150, "attrs": { "value": "220" } }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "leak_sensor:1", "esp:GND.2", "black", [ "v0" ] ],
+    [ "leak_sensor:2", "esp:15", "green", [ "v0" ] ],
+    [ "leak_sensor:3", "esp:3V3", "red", [ "v0" ] ],
+    
+    [ "led_green:A", "res_g:1", "green", [ "v0" ] ],
+    [ "res_g:2", "esp:13", "green", [ "v0" ] ],
+    [ "led_green:C", "esp:GND.1", "black", [ "v0" ] ],
+    
+    [ "led_red:A", "res_r:1", "red", [ "v0" ] ],
+    [ "res_r:2", "esp:14", "red", [ "v0" ] ],
+    [ "led_red:C", "esp:GND.1", "black", [ "v0" ] ],
+    
+    [ "buzzer:1", "esp:GND.1", "black", [ "v0" ] ],
+    [ "buzzer:2", "esp:12", "purple", [ "v0" ] ]
+  ]
 }

@@ -1,1 +1,10 @@
 .env
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+env/
+.venv/
+.vscode/
+fs.bin
+esp32-builder
