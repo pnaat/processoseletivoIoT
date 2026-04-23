@@ -1,7 +1,7 @@
-# Processo Seletivo – Intensivo Maker | Edge AI  
+# Processo Seletivo – Intensivo Maker | IoT
 ## Etapa Prática – Sistemas Embarcados
 
-Bem-vindo(a) à **etapa prática do processo seletivo para o Intensivo Maker | Edge AI**.
+Bem-vindo(a) à **etapa prática do processo seletivo para o Intensivo Maker | IoT**.
 
 Esta atividade tem como objetivo avaliar suas competências em **Sistemas Embarcados**, com foco em **organização de projeto, lógica de firmware e simulação de hardware**, a partir da aplicação prática dos conhecimentos adquiridos nos cursos EAD da etapa anterior.
 
@@ -116,7 +116,7 @@ A simulação do projeto será executada automaticamente via GitHub Actions, uti
 
 Para isso, você precisa gerar uma API Key.
 
-1. Acesse: https://wokwi.com/dashboard/cli
+1. Acesse: https://wokwi.com/dashboard/ci
 2. Faça login (Google ou GitHub)
 3. Clique em Generate API Token
 4. Copie a chave gerada (exemplo: wokwi-xxxxxxxx)
