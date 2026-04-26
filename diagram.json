@@ -15,58 +15,125 @@
       "id": "led_red",
       "top": 20,
       "left": 220,
-      "attrs": { "color": "red", "label": "Vermelho" }
+      "attrs": {
+        "color": "red",
+        "label": "Vermelho"
+      }
     },
     {
       "type": "wokwi-led",
       "id": "led_yellow",
       "top": 80,
       "left": 220,
-      "attrs": { "color": "yellow", "label": "Amarelo" }
+      "attrs": {
+        "color": "yellow",
+        "label": "Amarelo"
+      }
     },
     {
       "type": "wokwi-led",
       "id": "led_green",
       "top": 140,
       "left": 220,
-      "attrs": { "color": "green", "label": "Verde" }
+      "attrs": {
+        "color": "green",
+        "label": "Verde"
+      }
     },
     {
       "type": "wokwi-resistor",
       "id": "r1",
       "top": 20,
       "left": 170,
-      "attrs": { "value": "220" }
+      "attrs": {
+        "value": "220"
+      }
     },
     {
       "type": "wokwi-resistor",
       "id": "r2",
       "top": 80,
       "left": 170,
-      "attrs": { "value": "220" }
+      "attrs": {
+        "value": "220"
+      }
     },
     {
       "type": "wokwi-resistor",
       "id": "r3",
       "top": 140,
       "left": 170,
-      "attrs": { "value": "220" }
+      "attrs": {
+        "value": "220"
+      }
     }
   ],
   "connections": [
-    [ "esp:TX",  "$serialMonitor:RX", "", [] ],
-    [ "esp:RX",  "$serialMonitor:TX", "", [] ],
-
-    [ "esp:25",  "r1:1",  "red",    [] ],
-    [ "r1:2",    "led_red:A",   "red",    [] ],
-    [ "led_red:K",   "esp:GND.1", "black",  [] ],
-
-    [ "esp:26",  "r2:1",  "orange", [] ],
-    [ "r2:2",    "led_yellow:A", "orange", [] ],
-    [ "led_yellow:K", "esp:GND.2", "black", [] ],
-
-    [ "esp:27",  "r3:1",  "green",  [] ],
-    [ "r3:2",    "led_green:A", "green",  [] ],
-    [ "led_green:K",  "esp:GND.3", "black", [] ]
+    [
+      "esp:TX",
+      "$serialMonitor:RX",
+      "",
+      []
+    ],
+    [
+      "esp:RX",
+      "$serialMonitor:TX",
+      "",
+      []
+    ],
+    [
+      "esp:25",
+      "r1:1",
+      "red",
+      []
+    ],
+    [
+      "r1:2",
+      "led_red:A",
+      "red",
+      []
+    ],
+    [
+      "led_red:C",
+      "esp:GND.1",
+      "black",
+      []
+    ],
+    [
+      "esp:26",
+      "r2:1",
+      "orange",
+      []
+    ],
+    [
+      "r2:2",
+      "led_yellow:A",
+      "orange",
+      []
+    ],
+    [
+      "led_yellow:C",
+      "esp:GND.2",
+      "black",
+      []
+    ],
+    [
+      "esp:27",
+      "r3:1",
+      "green",
+      []
+    ],
+    [
+      "r3:2",
+      "led_green:A",
+      "green",
+      []
+    ],
+    [
+      "led_green:C",
+      "esp:GND.3",
+      "black",
+      []
+    ]
   ]
 }

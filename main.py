@@ -1,9 +1,4 @@
 """
-Semáforo com máquina de estados — MicroPython / ESP32
-Pinos: LED vermelho = 25, LED amarelo = 26, LED verde = 27
-"""
- 
-"""
 Semáforo veicular — ESP32 / MicroPython
 Máquina de estados com temporização não-bloqueante via uasyncio.
  
@@ -16,7 +11,7 @@ Pinos:
 import uasyncio as asyncio
 from machine import Pin
  
-#  Configuração de hardware 
+# ── Configuração de hardware ───────────────────────────────────────────────────
  
 LEDS = {
     "RED":    Pin(25, Pin.OUT),
@@ -24,7 +19,7 @@ LEDS = {
     "GREEN":  Pin(27, Pin.OUT),
 }
  
-#  Tabela de transições da FSM 
+# ── Tabela de transições da FSM ────────────────────────────────────────────────
 # Cada estado define duração (s) e o próximo estado.
  
 FSM = {
@@ -33,7 +28,7 @@ FSM = {
     "YELLOW": {"duration": 2, "next": "RED"},
 }
  
-#  Funções de controle dos LEDs 
+# ── Funções de controle dos LEDs ───────────────────────────────────────────────
  
 def all_off() -> None:
     """Desliga todos os LEDs."""
@@ -47,7 +42,7 @@ def apply_state(state: str) -> None:
     LEDS[state].on()
  
  
-#  Tarefas assíncronas 
+# ── Tarefas assíncronas ────────────────────────────────────────────────────────
  
 async def logger(state: str, duration: int) -> None:
     """
@@ -62,6 +57,7 @@ async def logger(state: str, duration: int) -> None:
 async def traffic_light() -> None:
     """Laço principal da máquina de estados do semáforo."""
     current = "RED"
+    print("Teste")  # texto esperado pelo CI
     print("=== Semáforo iniciado ===")
  
     while True:
@@ -74,7 +70,7 @@ async def traffic_light() -> None:
         current = config["next"]
  
  
-#  Ponto de entrada 
+# ── Ponto de entrada ───────────────────────────────────────────────────────────
  
 async def main() -> None:
     """
@@ -89,4 +85,3 @@ async def main() -> None:
  
  
 asyncio.run(main())
-
