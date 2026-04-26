@@ -1,7 +1,56 @@
 {
   "version": 1,
-  "author": "Uri Shaked",
+  "author": "Samuel Jackson",
   "editor": "wokwi",
-  "parts": [ { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} } ],
-  "connections": [ [ "esp:TX", "$serialMonitor:RX", "", [] ], [ "esp:RX", "$serialMonitor:TX", "", [] ] ]
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "botao",
+      "top": -48.1,
+      "left": -82.9,
+      "rotate": 90,
+      "attrs": { "bounce": "1", "xray": "" }
+    },
+    { "type": "wokwi-led", "id": "led", "top": -22.8, "left": 196.2, "attrs": { "flip": "1" } },
+    { "type": "wokwi-buzzer", "id": "buzzer", "top": -93.6, "left": 88.2, "attrs": {} },
+    {
+      "type": "wokwi-pir-motion-sensor",
+      "id": "pir1",
+      "top": -15.2,
+      "left": -199.38,
+      "attrs": {}
+    },
+    { "type": "wokwi-gas-sensor", "id": "gas1", "top": 146.7, "left": -165.8, "attrs": {} },
+    {
+      "type": "wokwi-text",
+      "id": "text1",
+      "top": -76.8,
+      "left": -115.2,
+      "attrs": { "text": "ARME/DESARME" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 42.35,
+      "left": 144,
+      "attrs": { "value": "150" }
+    }
+  ],
+  "connections": [
+    [ "botao:1.r", "esp:D26", "green", [ "v0" ] ],
+    [ "botao:2.r", "esp:GND.2", "orange", [ "h-0.2", "v134.6", "h62.6" ] ],
+    [ "led:A", "r1:2", "red", [ "v0" ] ],
+    [ "led:C", "esp:GND.1", "black", [ "v57.6", "h-77.2", "v72.2" ] ],
+    [ "buzzer:1", "esp:D23", "red", [ "v0" ] ],
+    [ "buzzer:2", "esp:GND.1", "black", [ "h-0.4", "v158.6" ] ],
+    [ "pir1:GND", "esp:GND.2", "black", [ "h76.54", "v57.6", "h72.2" ] ],
+    [ "pir1:OUT", "esp:D14", "green", [ "v9.6", "h28.66", "v33.6" ] ],
+    [ "pir1:VCC", "esp:3V3", "red", [ "h-19.2", "v144", "h307.2", "v-62.3" ] ],
+    [ "gas1:VCC", "esp:3V3", "red", [ "v8.7", "h144", "v-57.6", "v14.5" ] ],
+    [ "gas1:GND", "esp:GND.2", "black", [ "h19.2", "v-48.8", "v-4.6" ] ],
+    [ "gas1:DOUT", "esp:D12", "green", [ "h9.6", "v-119.5" ] ],
+    [ "r1:1", "esp:D22", "red", [ "v0" ] ]
+  ],
+  "dependencies": {}
 }
