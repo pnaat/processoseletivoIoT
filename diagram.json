@@ -65,6 +65,16 @@
       "attrs": {
         "value": "220"
       }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn_pedestrian",
+      "top": 200,
+      "left": 220,
+      "attrs": {
+        "color": "blue",
+        "label": "Pedestre"
+      }
     }
   ],
   "connections": [
@@ -112,7 +122,7 @@
     ],
     [
       "led_yellow:C",
-      "esp:GND.2",
+      "esp:GND.1",
       "black",
       []
     ],
@@ -130,7 +140,19 @@
     ],
     [
       "led_green:C",
-      "esp:GND.3",
+      "esp:GND.1",
+      "black",
+      []
+    ],
+    [
+      "esp:14",
+      "btn_pedestrian:1.l",
+      "purple",
+      []
+    ],
+    [
+      "btn_pedestrian:2.l",
+      "esp:GND.1",
       "black",
       []
     ]
