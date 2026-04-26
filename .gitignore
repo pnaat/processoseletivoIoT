@@ -1,1 +1,35 @@
+# Ambiente Python local
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+ 
+# Binários e artefatos de build
+*.bin
+*.elf
+*.map
+binaries/
+build/
+dist/
+ 
+# Filesystem gerado (nunca commitar — é produto do Dockerfile)
+fs.bin
+ 
+# Chaves e segredos (NUNCA commitar)
 .env
+*.key
+*.pem
+wokwi_api_key*
+ 
+# VS Code / Dev Container
+.vscode/
+!.vscode/extensions.json
+ 
+# macOS
+.DS_Store
+ 
+# IDEs
+.idea/
+*.iml
