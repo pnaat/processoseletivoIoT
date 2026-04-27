@@ -1,7 +1,56 @@
 {
   "version": 1,
-  "author": "Uri Shaked",
+  "author": "Gemini AI",
   "editor": "wokwi",
-  "parts": [ { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} } ],
-  "connections": [ [ "esp:TX", "$serialMonitor:RX", "", [] ], [ "esp:RX", "$serialMonitor:TX", "", [] ] ]
+  "parts": [
+    { "type": "board-esp32-devkit-v1", "id": "esp32", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-dht22",
+      "id": "dht1",
+      "top": -143.7,
+      "left": -111,
+      "attrs": { "temperature": "-2.1", "humidity": "82" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_green",
+      "top": -118.8,
+      "left": 147.8,
+      "attrs": { "color": "green" }
+    },
+    { "type": "wokwi-led", "id": "led_red", "top": -90, "left": 215, "attrs": { "color": "red" } },
+    { "type": "wokwi-buzzer", "id": "buzzer1", "top": 31.2, "left": 184.2, "attrs": {} },
+    {
+      "type": "wokwi-resistor",
+      "id": "res1",
+      "top": 13,
+      "left": 95.15,
+      "rotate": 270,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "res2",
+      "top": 22.6,
+      "left": 143.15,
+      "rotate": 270,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "esp32:3V3", "dht1:VCC", "red", [ "h186.71", "v-165.92", "h-384" ] ],
+    [ "esp32:D4", "dht1:SDA", "blue", [ "h13.91", "v-137.12", "h-201.7" ] ],
+    [ "esp32:D18", "res1:1", "green", [ "h23.51", "v-113.87" ] ],
+    [ "res1:2", "led_green:A", "green", [ "v-18", "h48" ] ],
+    [ "led_green:K", "esp32:GND.1", "black", [ "v0" ] ],
+    [ "esp32:D19", "res2:1", "red", [ "h71.51", "v-50.72", "v-53.55" ] ],
+    [ "res2:2", "led_red:A", "red", [ "v-18", "h67.2", "v-28.8" ] ],
+    [ "led_red:K", "esp32:GND.1", "black", [ "v0" ] ],
+    [ "esp32:D21", "buzzer1:2", "orange", [ "h61.91", "v74.08", "h67.6" ] ],
+    [ "buzzer1:1", "esp32:GND.1", "black", [ "v0" ] ],
+    [ "dht1:GND", "esp32:GND.2", "black", [ "v0" ] ],
+    [ "led_green:C", "esp32:GND.1", "black", [ "h-18.8", "v220.8", "h-42.71" ] ],
+    [ "led_red:C", "esp32:GND.1", "black", [ "v67.2", "h29.2", "v127.52" ] ]
+  ],
+  "dependencies": {}
 }
