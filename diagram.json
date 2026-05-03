@@ -1,7 +1,185 @@
+<<<<<<< Updated upstream
 {
   "version": 1,
   "author": "Uri Shaked",
   "editor": "wokwi",
   "parts": [ { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} } ],
   "connections": [ [ "esp:TX", "$serialMonitor:RX", "", [] ], [ "esp:RX", "$serialMonitor:TX", "", [] ] ]
+=======
+{
+  "version": 1,
+  "author": "Samuel Jackson",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "wokwi-esp32-devkit-v1", "id": "esp", "top": -4.9, "left": -5, "attrs": {} },
+    {
+      "type": "wokwi-led",
+      "id": "led_status",
+      "top": -42,
+      "left": 167.4,
+      "attrs": { "flip": "1" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_mem",
+      "top": -42,
+      "left": 263.4,
+      "attrs": { "color": "blue", "flip": "1" }
+    },
+    { "type": "wokwi-buzzer", "id": "buzzer", "top": -112.8, "left": 78.6, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn_arm",
+      "top": -48.6,
+      "left": -64.2,
+      "rotate": 90,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn_mem",
+      "top": -48.6,
+      "left": -131.4,
+      "rotate": 90,
+      "attrs": {}
+    },
+    { "type": "wokwi-pushbutton", "id": "z1", "top": 54.2, "left": -211.2, "attrs": {} },
+    { "type": "wokwi-pushbutton", "id": "z2", "top": 131, "left": -211.2, "attrs": {} },
+    { "type": "wokwi-pir-motion-sensor", "id": "z3", "top": 244, "left": -468.18, "attrs": {} },
+    { "type": "wokwi-pir-motion-sensor", "id": "z4", "top": 244, "left": -285.78, "attrs": {} },
+    { "type": "wokwi-gas-sensor", "id": "z5", "top": 242.7, "left": -165.8, "attrs": {} },
+    {
+      "type": "board-ssd1306",
+      "id": "oled1",
+      "top": 271.94,
+      "left": 19.43,
+      "attrs": { "i2cAddress": "0x3c" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": 52.8,
+      "left": 153.05,
+      "rotate": 90,
+      "attrs": { "value": "150" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": 62.4,
+      "left": 249.05,
+      "rotate": 90,
+      "attrs": { "value": "150" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text1",
+      "top": -105.6,
+      "left": -57.6,
+      "attrs": { "text": "ARME/\nDESARME\n" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text2",
+      "top": -105.6,
+      "left": -115.2,
+      "attrs": { "text": "VER\nMEM\n" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text3",
+      "top": -86.4,
+      "left": 153.6,
+      "attrs": { "text": "STATUS\nCENTRAL" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text4",
+      "top": -86.4,
+      "left": 249.6,
+      "attrs": { "text": "STATUS\n  MEM" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text5",
+      "top": 38.4,
+      "left": -297.6,
+      "attrs": { "text": "ZONA 1\nPÂNICO --->\nAUDÍVEL\n" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text6",
+      "top": 124.8,
+      "left": -307.2,
+      "attrs": { "text": "ZONA 2\nPÂNICO --->\nSILENCIOSO" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text7",
+      "top": 240,
+      "left": -355.2,
+      "attrs": { "text": "ZONA 4 \nPIR --->\nIMEDIATO" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text8",
+      "top": 240,
+      "left": -566.4,
+      "attrs": { "text": "ZONA 3 \nPIR TEMP --->\n(5 SEG)" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text9",
+      "top": 307.2,
+      "left": -153.6,
+      "attrs": { "text": "ZONA 5 \nGÁS/FUMAÇA\n" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "text11",
+      "top": 153.6,
+      "left": 172.8,
+      "attrs": {
+        "text": "=========================\nQuando iniciar a simulação,\naguarde o display ser iniciado\nantes de interagir com a Central\n=========================="
+      }
+    }
+  ],
+  "connections": [
+    [ "oled1:GND", "esp:GND.1", "black", [ "v-48", "h76.8", "v-57.5" ] ],
+    [ "oled1:VCC", "esp:3V3", "red", [ "v-38.4", "h57.75", "v-57.6" ] ],
+    [ "oled1:SDA", "esp:D21", "green", [ "v-19.2", "h57.67", "v-172.4" ] ],
+    [ "oled1:SCL", "esp:D22", "gold", [ "v-28.8", "h77.1", "v-191.7" ] ],
+    [ "buzzer:1", "esp:D23", "#8f4814", [ "v0" ] ],
+    [ "buzzer:2", "esp:GND.1", "black", [ "v0" ] ],
+    [ "led_status:A", "r1:1", "orange", [ "v0" ] ],
+    [ "r1:2", "esp:D2", "orange", [ "v37.2", "h-66.9" ] ],
+    [ "led_status:C", "esp:GND.1", "black", [ "v0" ] ],
+    [ "led_mem:A", "r2:1", "orange", [ "v0" ] ],
+    [ "r2:2", "esp:D4", "orange", [ "v18", "h-105.3" ] ],
+    [ "led_mem:C", "esp:GND.1", "black", [ "v0" ] ],
+    [ "btn_arm:1.r", "esp:D26", "green", [ "v0" ] ],
+    [ "btn_arm:2.r", "esp:GND.2", "black", [ "v134.6", "h28.6", "v0.1" ] ],
+    [ "btn_mem:1.r", "esp:D25", "green", [ "v0" ] ],
+    [ "btn_mem:2.r", "esp:GND.2", "black", [ "v96.2", "h57.4", "v48", "h38.4", "v-9.5" ] ],
+    [ "z1:1.r", "esp:D32", "green", [ "v0" ] ],
+    [ "z1:2.r", "esp:GND.2", "black", [ "h29", "v29", "h57.6", "v48", "h48", "v-19.1" ] ],
+    [ "z2:1.r", "esp:D33", "green", [ "h77", "v-105.6" ] ],
+    [ "z2:2.r", "esp:GND.2", "black", [ "h77", "v9.8", "h57.6", "v-28.7" ] ],
+    [ "z3:VCC", "esp:3V3", "red", [ "v38.4", "h441.6", "v-153.6", "h105.6", "v-67.2" ] ],
+    [ "z4:VCC", "esp:3V3", "red", [ "v38.4", "h259.2", "v-153.6", "h105.6", "v-67.2" ] ],
+    [ "z3:GND", "esp:GND.1", "black", [ "v28.8", "h412.54", "v-153.6", "h105.6", "v-67.1" ] ],
+    [ "z4:GND", "esp:GND.1", "black", [ "v28.8", "h230.14", "v-153.6", "h105.6", "v-67.1" ] ],
+    [ "z5:VCC", "esp:3V3", "red", [ "h38.4", "v-68.1", "h105.6", "v-67.2" ] ],
+    [ "z5:GND", "esp:GND.1", "black", [ "h28.8", "v-68", "h105.6", "v-67.1" ] ],
+    [ "z5:DOUT", "esp:D12", "green", [ "h19.2", "v-143.6" ] ],
+    [
+      "z3:OUT",
+      "esp:D27",
+      "green",
+      [ "v19.2", "h57.46", "v-134.4", "h249.6", "h86.4", "v-114.9" ]
+    ],
+    [ "z4:OUT", "esp:D14", "green", [ "v19.2", "h57.46", "v-124.8", "h163.2", "v-115.3" ] ]
+  ],
+  "dependencies": {}
+>>>>>>> Stashed changes
 }
