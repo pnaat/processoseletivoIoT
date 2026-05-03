@@ -1,6 +1,3 @@
-<<<<<<< Updated upstream
-print("Teste")
-=======
 """
 Central de Alarme — ESP32 + OLED SSD1306
 Simulação: Wokwi
@@ -264,4 +261,3 @@ while True:
                 draw("DISPARO", zona)
                 display_index += 1
     time.sleep(0.01)
->>>>>>> Stashed changes
