@@ -2,11 +2,9 @@ name: ESP32 Filesystem Build
 
 on:
   push:
-    branches:
-      - '*'
+    branches: ["**"]
   pull_request:
-    branches:
-      - main
+    branches: ["**"]
 
 jobs:
   build_filesystem:
