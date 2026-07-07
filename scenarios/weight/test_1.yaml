@@ -1,27 +1,26 @@
-
-name: 'Teste de Reposição - Kanban Inteligente por Peso'
+name: 'Teste de Consumo Parcial - Sem Disparo Prematuro'
 version: 1
 author: 'Aluno'
 steps:
   # 1. Aguarda o sistema inicializar completamente
   - wait-serial: 'Sistema Kanban Inicializado'
 
-  # 2. Simula o estado normal (caixa cheia com carga alta, ex: 5000g)
+  # 2. Simula o estado inicial (caixa completamente cheia)
   - set-control:
       part-id: hx711
       control: load
       value: 5000
   - delay: 1s
   
-  # 3. Aluno simula a retirada de peças ajustando o valor de carga para próximo da tara ou limite mínimo (ex: 200g)
+  # 3. Simula a retirada de algumas peças (peso cai pela metade, ex: 2500g)
   - set-control:
       part-id: hx711
       control: load
-      value: 200
+      value: 2500
 
-  # 4. O sistema deve detectar o limite mínimo/tara e gerar o evento de reposição
-  # Substitua a string abaixo pela mensagem exata de log que o seu firmware exibe na Serial
-  - wait-serial: 'Evento de reposição disparado! Caixa vazia detectada.'
+  # 4. Aguarda um tempo para garantir que o sistema processe a leitura e permaneça estável
+  - delay: 2s
   
-  # 5. Pequeno atraso de segurança para finalizar a validação do cenário
-  - delay: 500ms
+  # 5. Valida que o sistema NÃO enviou alerta e continua em estado normal
+  # Nota: Se a mensagem de reposição aparecer aqui, o teste falhará por timeout.
+  - wait-serial: 'Status: Estoque Regular (2500g)'

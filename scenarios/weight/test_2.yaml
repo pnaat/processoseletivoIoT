@@ -1,27 +1,26 @@
-
-name: 'Teste de Reposição - Kanban Inteligente por Peso'
+name: 'Teste de Ciclo Completo - Consumo e Reabastecimento'
 version: 1
 author: 'Aluno'
 steps:
-  # 1. Aguarda o sistema inicializar completamente
+  # 1. Inicialização do sistema
   - wait-serial: 'Sistema Kanban Inicializado'
 
-  # 2. Simula o estado normal (caixa cheia com carga alta, ex: 5000g)
+  # 2. Caixa fica vazia (atinge o limite mínimo)
+  - set-control:
+      part-id: hx711
+      control: load
+      value: 150
+  
+  # 3. Confirma que o alerta de reposição foi gerado
+  - wait-serial: 'Evento de reposição disparado! Caixa vazia detectada.'
+  - delay: 1s
+
+  # 4. Simula o reabastecimento completo da caixa pelo operador (peso volta para 5000g)
   - set-control:
       part-id: hx711
       control: load
       value: 5000
-  - delay: 1s
-  
-  # 3. Aluno simula a retirada de peças ajustando o valor de carga para próximo da tara ou limite mínimo (ex: 200g)
-  - set-control:
-      part-id: hx711
-      control: load
-      value: 200
 
-  # 4. O sistema deve detectar o limite mínimo/tara e gerar o evento de reposição
-  # Substitua a string abaixo pela mensagem exata de log que o seu firmware exibe na Serial
-  - wait-serial: 'Evento de reposição disparado! Caixa vazia detectada.'
-  
-  # 5. Pequeno atraso de segurança para finalizar a validação do cenário
+  # 5. O sistema deve detectar o aumento de peso e registrar que o estoque foi normalizado
+  - wait-serial: 'Abastecimento concluído. Caixa cheia.'
   - delay: 500ms
