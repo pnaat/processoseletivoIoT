@@ -22,11 +22,11 @@ jobs:
           FOLDER="WEIGHT"
 
           if [-f "scenarios/WEITHG.txt" ]; then
-            FOLDER=WEITHG
+            FOLDER=weight
           elif [ -f "scenarios/TEMPERATURE.txt"]; then
-            FOLDER=TEMPERATURE
+            FOLDER=temperature
           elif [ -f "scenarios/LIGHT.txt"]; then
-            FOLDER=LIGHT
+            FOLDER=light
           fi
 
           echo "project_folder=$FOLDER" >> $GITHUB_OUTPUT
@@ -49,8 +49,35 @@ jobs:
         
         docker cp esp32-fs-builder:/fs.bin .
 
+    # Salva o arquivo fs.bin gerado para que o próximo Job possa usá-lo
+    - name: Upload Build Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: esp32-firmware-binary
+        path: fs.bin
+        retention-days: 1
+
+  run_tests:
+    needs: [detect_project, build_filesystem]
+    runs-on: ubuntu-latest
+    strategy:
+      # Define os 3 tipos de sub-testes que existem para todos os cenários
+      matrix:
+        test_type: [test_1, test_2, test_3]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    # Baixa o fs.bin gerado lá no JOB 2 para a raiz do projeto atual
+    - name: Download Build Artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: esp32-firmware-binary
+        path: .
+
     - name: Test with Wokwi
       uses: wokwi/wokwi-ci-action@v1
       with:
         token: ${{ secrets.WOKWI_CLI_TOKEN }}
-        scenario: 'kanban_teste.test.yaml'
+        scenario: 'scenarios/${{ needs.detect_project.outputs.project_folder }}/${{ matrix.test_type }}.yaml'
