@@ -18,16 +18,16 @@ jobs:
       - name: Identify active project
         id: set_folder
         run: |
-          #Padrão de segurança
-          FOLDER="WEIGHT"
-        
-          # Corrigido: adicionados os espaços e corrigido 'WEIGHT.txt'
-          if [ -f "scenarios/WEIGHT.txt" ]; then
+          # Padrão de segurança (nome da pasta em minúsculo, igual ao disco)
+          FOLDER="weight"
+
+          # Detecta o cenário ativo pelo .md que permanece em scenarios/
+          if [ -f "scenarios/WEIGHT.md" ]; then
             FOLDER="weight"
-          elif [ -f "scenarios/TEMPERATURE.txt" ]; then
+          elif [ -f "scenarios/TEMPERATURE.md" ]; then
             FOLDER="temperature"
-          elif [ -f "scenarios/LIGHT.txt" ]; then
-           FOLDER="light"
+          elif [ -f "scenarios/LIGHT.md" ]; then
+            FOLDER="light"
           fi
           
           echo "project_folder=$FOLDER" >> $GITHUB_OUTPUT
