@@ -1,7 +1,7 @@
 import machine
 import time
 
-# DRIVER DO SENSOR
+# Driver do sensor
 class HX711:
     def __init__(self, dout_pin, pd_sck_pin):
         self.dout = machine.Pin(dout_pin, machine.Pin.IN)
@@ -13,9 +13,12 @@ class HX711:
         return self.dout.value() == 0
 
     def read_weight(self):
-        # Se o sensor não estiver pronto, sai da função imediatamente
+        # Se o sensor não estiver pronto, sai da função
         if not self.is_ready():
             return None
+
+        # Desativa as interrupções do ESP32
+        irq_state = machine.disable_irq()
 
         count = 0
         for _ in range(24):
@@ -29,15 +32,17 @@ class HX711:
         count = count ^ 0x800000
         self.pd_sck.value(0)
 
+        # Reativa as interrupções do sistema
+        machine.enable_irq(irq_state)
+
         raw_value = count - 0x800000
         return int(raw_value / self.scale)
 
-# Lógica principal
+# Logica principal
 def main():
     # Inicializa o sensor nos pinos definidos
     sensor = HX711(dout_pin=16, pd_sck_pin=4)
-
-    # MENSAGEM OBRIGATÓRIA 1: Inicialização
+    # Mensagem 1: Inizialização
     print("Sistema Kanban Inicializado")
 
     STATE_REGULAR = 1
@@ -52,22 +57,21 @@ def main():
         weight = sensor.read_weight()
 
         if weight is not None:
-
-            # MENSAGEM OBRIGATÓRIA 5: Anomalia / Falha Crítica
-            if weight == 0:
+            # Mensagem 5: Anomalia/Falha
+            if weight <= 0:
                 if current_state != STATE_ERROR:
                     print("ALERTA: Caixa ausente ou erro de calibração no sensor HX711!")
                     current_state = STATE_ERROR
 
-            # MENSAGEM OBRIGATÓRIA 3: Sub-estoque / Caixa Vazia
             elif weight < 500:
+                # Mensagem 3: Caixa Vazia
                 if current_state != STATE_EMPTY:
                     print("Evento de reposição disparado! Caixa vazia detectada.")
                     current_state = STATE_EMPTY
 
-            # Estado Regular
+            # Regular
             else:
-                # MENSAGEM OBRIGATÓRIA 4: Transição de retorno de carga cheia
+                # Mensagem 4: Transição de retorno de carga cheia
                 if current_state == STATE_EMPTY and weight >= 4900:
                     print("Abastecimento concluído. Caixa cheia.")
                     current_state = STATE_REGULAR
@@ -80,9 +84,10 @@ def main():
                     print(f"Status: Estoque Regular ({weight}g)")
                     last_printed_weight = weight
 
-                # MENSAGEM OBRIGATÓRIA 2: Saída Dinâmica
+                # Mensagem 2: Saída
                 else:
-                    if weight != last_printed_weight:
+                    # Filtro
+                    if last_printed_weight is None or abs(weight - last_printed_weight) > 5:
                         print(f"Status: Estoque Regular ({weight}g)")
                         last_printed_weight = weight
 
