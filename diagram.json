@@ -1,7 +1,30 @@
 {
   "version": 1,
-  "author": "Uri Shaked",
+  "author": "Erick Felipe",
   "editor": "wokwi",
-  "parts": [ { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} } ],
-  "connections": [ [ "esp:TX", "$serialMonitor:RX", "", [] ], [ "esp:RX", "$serialMonitor:TX", "", [] ] ]
+  "parts": [
+    {
+      "type": "board-esp32-devkit-c-v4",
+      "id": "esp",
+      "top": 0,
+      "left": 0,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-hx711",
+      "id": "hx711",
+      "top": 0,
+      "left": 150,
+      "attrs": {}
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "esp:3V3", "hx711:VCC", "red", [ "v0" ] ],
+    [ "esp:GND", "hx711:GND", "black", [ "v0" ] ],
+    [ "esp:16", "hx711:DT", "green", [ "v0" ] ],
+    [ "esp:4", "hx711:SCK", "yellow", [ "v0" ] ]
+  ],
+  "dependencies": {}
 }
