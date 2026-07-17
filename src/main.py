@@ -91,7 +91,8 @@ def main():
                         print(f"Status: Estoque Regular ({weight}g)")
                         last_printed_weight = weight
 
-        time.sleep_ms(10)
+        # Otimização para o simulador acelerar o tempo virtual
+        time.sleep_ms(250)
 
 if __name__ == '__main__':
     main()
