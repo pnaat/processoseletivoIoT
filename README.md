@@ -190,6 +190,24 @@ O desenvolvimento acontece principalmente nos arquivos abaixo:
   - Tipo de placa
   - Framework
   - Dependências adicionais
+ 
+#### Rodando localmente
+
+Para executar o seu projeto locamente, é necesário preparar a imagem docker local, e após isso
+utiliza-la para gerar o arquivo que conterá o seu código para o projeto, para isso, execute os 
+seguintes códigos:
+
+1. Prepara a imagem docker (Necessário rodar apenas 1 vez)
+
+```bash
+docker build -t esp32-builder -f Dockerfile .
+```
+
+2. Prepara o arquivo de memória fs.bin (Necessário a cada iteração)
+
+```bash
+docker run --rm -v "$(pwd)/src:/mnt/src" -v "$(pwd):/mnt/out" esp32-builder bash -c "mkdir -p /tmp/fs && cp -r /mnt/src/* /tmp/fs/ && /mklittlefs/mklittlefs -c /tmp/fs -b 4096 -p 256 -s 0x200000 /mnt/out/fs.bin"
+```
 
 #### Commit e Push
 
